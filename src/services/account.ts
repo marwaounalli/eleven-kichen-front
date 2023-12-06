@@ -1,30 +1,27 @@
-import Axios from './requestManager'
+import Axios from './requestManager';
 
-let login = (credentials: any) => {
-    return Axios.post('/api/login', credentials)
-}
+const login = (credentials: any) => Axios.post('/api/login', credentials);
 
-let logout = () => {
-    localStorage.removeItem('token')
-}
+const logout = () => {
+  localStorage.removeItem('token');
+};
 
-let getToken = () => {
-    return localStorage.getItem('token')
-}
+const getToken = () => localStorage.getItem('token');
 
-let saveToken = (token: string) => {
-    localStorage.setItem('token', token)
-}
+const saveToken = (token: string) => {
+  localStorage.setItem('token', token);
+};
 
-let isLogged = () => {
-    let token = localStorage.getItem('token')
-    return !!token
-}
+const isLogged = () => {
+  const token = localStorage.getItem('token');
 
-export const accountService = {
-    login,
-    logout,
-    saveToken,
-    getToken,
-    isLogged
-}
+  return !!token;
+};
+
+export default {
+  login,
+  logout,
+  saveToken,
+  getToken,
+  isLogged,
+};

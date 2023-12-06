@@ -1,8 +1,7 @@
-import axios from 'axios'
-import router from '@/router'
-import store from '@/store'
+import axios from 'axios';
 
 const Axios = axios.create({
-    baseURL: 'http://localhost'
-})
-export default Axios
+  baseURL: 'http://localhost',
+});
+
+export default Axios;
