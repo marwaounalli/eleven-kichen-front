@@ -16,6 +16,22 @@ pnpm install
 bun install
 ```
 
+### Install Git Hooks
+
+```
+# yarn
+yarn install-githooks
+
+# npm
+npm run install-githooks
+
+# pnpm
+pnpm install-githooks
+
+# bun
+bun run install-githooks
+```
+
 ### Compiles and hot-reloads for development
 
 ```

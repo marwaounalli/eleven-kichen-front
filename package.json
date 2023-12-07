@@ -13,7 +13,7 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "prepare": "husky install"
+    "install-githooks": "husky install"
   },
   "dependencies": {
     "@mdi/font": "^7.3.67",
