@@ -1,6 +1,6 @@
 import Axios from './requestManager';
 
-const login = (credentials: any) => Axios.post('/api/login', credentials);
+const login = (credentials: any) => Axios.post('/login', credentials);
 
 const logout = () => {
   localStorage.removeItem('token');
