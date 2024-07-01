@@ -16,12 +16,8 @@ const state = reactive({
   category: '',
 });
 
-const difficulty = [
-    {label: 'Facile', value: 'easy'},
-    {label: 'Moyenne', value: 'medium'},
-    {label: 'Difficile', value: 'hard'},
-  ];
-  
+const difficulty = ['easy', 'medium', 'hard'];
+
 const categories = ['party', 'sweets', 'batch cooking'];
 const rules = {
   title: { required },
@@ -57,7 +53,7 @@ const create = () => {
 
         <v-select :items="difficulty"
         :error-messages="v$.difficulty.$errors.map(e => typeof e.$message === 'object' ? e.$message.value : e.$message)"
-        label="Difficulté"  item-title="label" value="value" required @change="v$.difficulty.$touch" @blur="v$.difficulty.$touch" />
+        label="Difficulté" required @change="v$.difficulty.$touch" @blur="v$.difficulty.$touch" />
 
         <v-select :items="categories"
         :error-messages="v$.category.$errors.map(e => typeof e.$message === 'object' ? e.$message.value : e.$message)"

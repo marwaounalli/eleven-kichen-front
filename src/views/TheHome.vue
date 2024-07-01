@@ -1,22 +1,36 @@
-<script setup lang="ts">
+<script lang="ts">
+import recipesService from '@/services/recipes';
+
+export default {
+  data() {
+    return {
+      recipes: []
+    }
+  },
+  async mounted() {
+    let result = await recipesService.getRecipes();
+    this.recipes = result.data;
+    console.log(this.recipes);
+  }
+}
 </script>
 
 <template>
   <v-card class="ma-5 pa-5">
     <div class="text-right mb-10">
       <router-link to="/create-recipe">
-        <v-btn class="bg-yellow-darken-2">
+        <v-btn>
           Ajouter une recette
         </v-btn>
       </router-link>
     </div>
     <v-row>
-      <v-col v-for="n in 9" :key="n" cols="4" sm="4" xs="5" md="3" lg="3">
+      <v-col v-for="recipe in recipes" :key="recipe.id" cols="4" sm="4" xs="5" md="3" lg="3">
         <v-hover v-slot="{ isHovering, props }">
           <v-card class="mx-auto" color="grey-lighten-4" max-width="600" v-bind="props">
             <v-img
-              :src="`https://picsum.photos/500/300?image=${n * 5 + 30}`"
-              :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 30}`"
+              :src="`https://localhost/${recipe.imagePath}`"
+              :lazy-src="`https://localhost/${recipe.imagePath  }`"
               aspect-ratio="1"
               cover
               class="bg-grey-lighten-2"
@@ -33,20 +47,27 @@
                   class="d-flex transition-fast-in-fast-out bg-yellow-darken-2 v-card--reveal text-h6"
                   style="height: 100%;"
                 >
-                  Ingrédients : <br>
-                  - Farine<br>
-                  - Sucre<br>
-                  - Chocolat<br>
+                  <v-list class="bg-yellow-darken-2">
+                    Ingrédients :
+
+                  <v-list-item
+        v-for="(item, i) in recipe.ingredients"
+        :key="i"
+        :value="item"
+      >
+      <v-list-item-title v-text="item.name + `:  ${item.quantity} ${item.measurmentUnit}`" max-width="600"></v-list-item-title>
+      </v-list-item>
+      </v-list>
                 </div>
               </v-expand-transition>
             </v-img>
             <v-card-item>
               <v-card-title class="font-weight-light text-grey text-h6 mb-2">
-                Cafe Badilico
+                {{ recipe.title }}
               </v-card-title>
 
               <v-card-subtitle>
-                <span class="me-1">Local Favorite</span>
+                <span class="me-1">{{ recipe.category }}</span>
 
                 <v-icon color="error" icon="mdi-fire-circle" size="small" />
               </v-card-subtitle>
@@ -70,9 +91,7 @@
               <div class="my-4 text-subtitle-1" />
 
               <div class="font-weight-light mb-2">
-                Small plates, salads & sandwiches - an intimate setting with
-                12 indoor seats plus patio
-                seating.
+                {{ recipe.description }}
               </div>
             </v-card-text>
           </v-card>
