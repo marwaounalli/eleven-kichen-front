@@ -11,12 +11,12 @@ const router = useRouter();
 const showPassword = ref(false);
 
 const state = reactive({
-  email: '',
+  username: '',
   password: '',
 });
 
 const rules = {
-  email: { required, email },
+  username: { required, email },
   password: { required },
 };
 
@@ -25,7 +25,7 @@ const v$ = useVuelidate(rules, state);
 const login = () => {
   accountService.login(state)
     .then((res) => {
-      accountService.saveToken(res.data.access_token);
+      accountService.saveToken(res.data.token);
       router.push('/');
     })
     .catch((err) => console.error(err));
@@ -38,12 +38,12 @@ const login = () => {
 
     <form @submit.prevent="login">
       <v-text-field
-        v-model="state.email"
+        v-model="state.username"
         label="E-mail"
         required
-        :error-messages="v$.email.$errors.map(e => typeof e.$message === 'object' ? e.$message.value : e.$message)"
-        @input="v$.email.$touch"
-        @blur="v$.email.$touch"
+        :error-messages="v$.username.$errors.map(e => typeof e.$message === 'object' ? e.$message.value : e.$message)"
+        @input="v$.username.$touch"
+        @blur="v$.username.$touch"
       />
       <v-text-field
         v-model="state.password"
@@ -58,7 +58,7 @@ const login = () => {
         @input="v$.password.$touch"
         @blur="v$.password.$touch"
       />
-      <v-btn class="me-4">
+      <v-btn type="submit" class="me-4">
         login
       </v-btn>
     </form>
